@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "CRC Admin Dashboard"
+version = "1.0.0"
+id = "artifacts/crc-admin"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23610
+
+[services.development]
+run = "pnpm --filter @workspace/crc-admin run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/crc-admin", "run", "build" ]
+publicDir = "artifacts/crc-admin/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23610"
+BASE_PATH = "/"

@@ -1,0 +1,524 @@
+Build a COMPLETE PRODUCTION-READY BACKEND SERVER for a luxury QR Code Restaurant Ordering Platform called:
+
+“CRC Multicuisine Restaurant”
+
+Create a scalable, secure, modular, realtime backend architecture for:
+- Customer ordering system
+- Admin dashboard
+- Live order tracking
+- Menu management
+- Reviews system
+- Offer management
+- Notifications
+- Analytics
+
+==================================================
+TECH STACK
+==================================================
+
+Backend:
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- Socket.io
+- JWT Authentication
+- Cloudinary
+- Multer
+- BcryptJS
+- Express Validator
+- Cors
+- Dotenv
+- Morgan
+- Cookie Parser
+
+==================================================
+PROJECT STRUCTURE
+==================================================
+
+server/
+│
+├── src/
+│   │
+│   ├── config/
+│   │   ├── db.js
+│   │   ├── cloudinary.js
+│   │   ├── socket.js
+│   │   └── env.js
+│   │
+│   ├── controllers/
+│   │   ├── auth.controller.js
+│   │   ├── order.controller.js
+│   │   ├── menu.controller.js
+│   │   ├── category.controller.js
+│   │   ├── review.controller.js
+│   │   ├── analytics.controller.js
+│   │   ├── offer.controller.js
+│   │   ├── upload.controller.js
+│   │   ├── table.controller.js
+│   │   └── notification.controller.js
+│   │
+│   ├── middleware/
+│   │   ├── auth.middleware.js
+│   │   ├── admin.middleware.js
+│   │   ├── error.middleware.js
+│   │   ├── upload.middleware.js
+│   │   └── validate.middleware.js
+│   │
+│   ├── models/
+│   │   ├── User.js
+│   │   ├── Order.js
+│   │   ├── MenuItem.js
+│   │   ├── Category.js
+│   │   ├── Review.js
+│   │   ├── Offer.js
+│   │   ├── Notification.js
+│   │   ├── Table.js
+│   │   └── Analytics.js
+│   │
+│   ├── routes/
+│   │   ├── auth.routes.js
+│   │   ├── order.routes.js
+│   │   ├── menu.routes.js
+│   │   ├── category.routes.js
+│   │   ├── review.routes.js
+│   │   ├── analytics.routes.js
+│   │   ├── offer.routes.js
+│   │   ├── upload.routes.js
+│   │   ├── table.routes.js
+│   │   └── notification.routes.js
+│   │
+│   ├── sockets/
+│   │   ├── order.socket.js
+│   │   ├── notification.socket.js
+│   │   └── analytics.socket.js
+│   │
+│   ├── seed/
+│   │   ├── menu.seed.js
+│   │   ├── offers.seed.js
+│   │   └── categories.seed.js
+│   │
+│   ├── services/
+│   │   ├── order.service.js
+│   │   ├── analytics.service.js
+│   │   ├── notification.service.js
+│   │   └── cloudinary.service.js
+│   │
+│   ├── validators/
+│   │   ├── auth.validator.js
+│   │   ├── order.validator.js
+│   │   ├── menu.validator.js
+│   │   └── review.validator.js
+│   │
+│   ├── utils/
+│   │   ├── generateToken.js
+│   │   ├── generateOrderId.js
+│   │   ├── responseHandler.js
+│   │   └── apiFeatures.js
+│   │
+│   ├── app.js
+│   └── server.js
+│
+├── uploads/
+│
+├── package.json
+│
+├── .env
+│
+└── README.md
+
+==================================================
+SERVER FEATURES
+==================================================
+
+Create:
+- Production-ready architecture
+- Modular controllers
+- Secure JWT auth
+- Realtime Socket.io updates
+- MongoDB integration
+- Cloudinary uploads
+- Validation system
+- Error handling
+- Clean REST APIs
+- Analytics engine
+
+==================================================
+AUTHENTICATION SYSTEM
+==================================================
+
+Implement:
+- JWT Authentication
+- Admin login
+- Protected routes
+- Role-based access
+- Password hashing using bcrypt
+- Secure cookies/tokens
+
+Admin Roles:
+- Super Admin
+- Restaurant Manager
+- Staff
+
+==================================================
+DATABASE SCHEMAS
+==================================================
+
+Create schemas for:
+
+1. User
+2. Order
+3. MenuItem
+4. Category
+5. Review
+6. Offer
+7. Notification
+8. Table
+9. Analytics
+
+==================================================
+MENU ITEM SCHEMA
+==================================================
+
+Fields:
+- name
+- slug
+- description
+- category
+- image
+- galleryImages
+- price
+- ratings
+- totalReviews
+- isVeg
+- isBestseller
+- isAvailable
+- spicyLevel
+- preparationTime
+- ingredients
+- calories
+- tags
+- createdAt
+
+==================================================
+ORDER SCHEMA
+==================================================
+
+Fields:
+- orderId
+- customerName
+- tableNumber
+- orderedItems
+- quantities
+- totalAmount
+- GST
+- notes
+- orderStatus
+- estimatedCookingTime
+- paymentStatus
+- createdAt
+
+Statuses:
+- Pending
+- Accepted
+- Preparing
+- Cooking
+- Ready
+- Served
+- Completed
+- Cancelled
+
+==================================================
+REVIEW SCHEMA
+==================================================
+
+Fields:
+- customerName
+- menuItem
+- rating
+- reviewText
+- reviewImages
+- createdAt
+
+==================================================
+OFFERS SCHEMA
+==================================================
+
+Fields:
+- title
+- description
+- bannerImage
+- originalPrice
+- discountedPrice
+- discountPercentage
+- startDate
+- endDate
+- isFeatured
+- isActive
+
+==================================================
+TABLE SCHEMA
+==================================================
+
+Fields:
+- tableNumber
+- status
+- currentOrder
+- occupancy
+- reserved
+
+==================================================
+ANALYTICS SCHEMA
+==================================================
+
+Fields:
+- dailyRevenue
+- weeklyRevenue
+- monthlyRevenue
+- totalOrders
+- topSellingDishes
+- activeTables
+- customerGrowth
+
+==================================================
+API ROUTES
+==================================================
+
+AUTH ROUTES:
+- POST /api/auth/login
+- POST /api/auth/register
+- GET /api/auth/me
+
+==================================================
+MENU ROUTES
+==================================================
+
+- GET /api/menu
+- GET /api/menu/:id
+- POST /api/menu
+- PUT /api/menu/:id
+- DELETE /api/menu/:id
+
+==================================================
+ORDER ROUTES
+==================================================
+
+- GET /api/orders
+- GET /api/orders/:id
+- POST /api/orders
+- PUT /api/orders/:id/status
+- DELETE /api/orders/:id
+
+==================================================
+REVIEW ROUTES
+==================================================
+
+- GET /api/reviews
+- POST /api/reviews
+- DELETE /api/reviews/:id
+
+==================================================
+OFFERS ROUTES
+==================================================
+
+- GET /api/offers
+- POST /api/offers
+- PUT /api/offers/:id
+- DELETE /api/offers/:id
+
+==================================================
+UPLOAD ROUTES
+==================================================
+
+- POST /api/upload/image
+
+Use:
+- Multer
+- Cloudinary
+
+==================================================
+ANALYTICS ROUTES
+==================================================
+
+- GET /api/analytics/dashboard
+- GET /api/analytics/revenue
+- GET /api/analytics/orders
+- GET /api/analytics/top-dishes
+
+==================================================
+TABLE ROUTES
+==================================================
+
+- GET /api/tables
+- PUT /api/tables/:id
+- POST /api/tables
+
+==================================================
+REALTIME SOCKET.IO EVENTS
+==================================================
+
+Implement realtime events:
+
+- new-order
+- order-accepted
+- order-preparing
+- order-cooking
+- order-ready
+- order-served
+- order-completed
+- order-cancelled
+- new-review
+- new-offer
+- live-notification
+- analytics-update
+
+==================================================
+ORDER FLOW
+==================================================
+
+When customer places order:
+1. Save order in MongoDB
+2. Generate unique order ID
+3. Emit realtime event
+4. Notify admin dashboard
+5. Update active tables
+6. Send cooking updates realtime
+
+==================================================
+ADMIN MENU MANAGEMENT
+==================================================
+
+Admin can:
+- Add menu item
+- Edit menu item
+- Delete menu item
+- Upload images
+- Toggle bestseller
+- Toggle availability
+- Manage categories
+- Add offers
+
+==================================================
+VALIDATION SYSTEM
+==================================================
+
+Use:
+- Express Validator
+
+Validate:
+- Login inputs
+- Menu creation
+- Order creation
+- Reviews
+- Uploads
+
+==================================================
+ERROR HANDLING
+==================================================
+
+Create:
+- Global error middleware
+- Custom API responses
+- Status codes
+- Validation errors
+- Secure error handling
+
+==================================================
+SECURITY
+==================================================
+
+Implement:
+- JWT auth
+- Password hashing
+- Protected routes
+- Admin middleware
+- CORS protection
+- Input sanitization
+- Rate limiting
+- Secure uploads
+
+==================================================
+SEED DATA
+==================================================
+
+Create seed files for:
+- Categories
+- Menu Items
+- Offers
+
+Include all restaurant menu items.
+
+==================================================
+MENU ITEMS
+==================================================
+
+Include:
+- Chicken Dilkush Biryani
+- Chicken Majestic
+- Chicken 65
+- Kaju Nut Chicken
+- Orange Mint Mojito
+- Brownie with Ice Cream
+- Kalmi Chicken Kabab
+- Dragon Chicken
+- Chicken Tandoori
+- CRC Special Shawarma Plate
+- Death By Chocolate
+- Blue Lagoon Mojito
+
+And all remaining menu items.
+
+==================================================
+CLOUDINARY
+==================================================
+
+Use Cloudinary for:
+- Food images
+- Review images
+- Offer banners
+
+==================================================
+DEPLOYMENT
+==================================================
+
+Backend deployment:
+- Render
+
+Database:
+- MongoDB Atlas
+
+Environment Variables:
+- MONGO_URI
+- JWT_SECRET
+- CLOUDINARY_CLOUD_NAME
+- CLOUDINARY_API_KEY
+- CLOUDINARY_API_SECRET
+- CLIENT_URL
+- ADMIN_URL
+
+==================================================
+FINAL REQUIREMENTS
+==================================================
+
+Generate:
+- Complete backend server
+- Modular architecture
+- Production-ready APIs
+- Socket.io realtime system
+- JWT authentication
+- MongoDB schemas
+- Controllers
+- Routes
+- Validation
+- Error handling
+- Cloudinary uploads
+- Seed data
+- Analytics APIs
+- Order management APIs
+- Offer management APIs
+
+The backend must feel like:
+- Enterprise-grade SaaS backend
+- Scalable restaurant management system
+- Premium realtime food ordering engine
+- Production-ready Node.js architecture

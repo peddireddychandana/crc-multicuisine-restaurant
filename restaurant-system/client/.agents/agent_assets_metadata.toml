@@ -1,0 +1,50 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "gpYq8iUEXj5fp3iG8i9p7"
+uri = "file://artifacts/crc-restaurant/public/hero-bg.png"
+type = "image"
+title = "Cinematic hero background"
+
+[[generated]]
+id = "EDtb4ga1Q_Zc-uCOSergd"
+uri = "file://artifacts/crc-restaurant/public/chicken-dum-biryani.png"
+type = "image"
+title = "Chicken Dum Biryani"
+
+[[generated]]
+id = "FwesN7eOylNhEKUnnOSSs"
+uri = "file://artifacts/crc-restaurant/public/dragon-chicken.png"
+type = "image"
+title = "Dragon Chicken"
+
+[[generated]]
+id = "qx_6vtEELQLO65cKmxqSy"
+uri = "file://artifacts/crc-restaurant/public/shawarma-plate.png"
+type = "image"
+title = "CRC Special Shawarma Plate"
+
+[[generated]]
+id = "vZkbgZJBklB0AtUaM3CGP"
+uri = "file://artifacts/crc-restaurant/public/brownie-ice-cream.png"
+type = "image"
+title = "Brownie with Ice Cream"
+
+[[generated]]
+id = "3ji3mpc9YAOafec5q0_xH"
+uri = "file://artifacts/crc-restaurant/public/orange-mint-mojito.png"
+type = "image"
+title = "Orange Mint Mojito"
+
+[[generated]]
+id = "mnvhEFvRqjXFA0n-GqsgH"
+uri = "file://artifacts/crc-restaurant/public/paneer-majestic.png"
+type = "image"
+title = "Paneer Majestic"
+
+[[generated]]
+id = "qFhIA8xjtk3cSif0wU_6o"
+uri = "file://artifacts/crc-restaurant/public/chicken-tikka.png"
+type = "image"
+title = "Chicken Tikka"

@@ -1,0 +1,613 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: CRC Multicuisine Restaurant API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: auth
+    description: Authentication
+  - name: menu
+    description: Menu items
+  - name: categories
+    description: Menu categories
+  - name: orders
+    description: Order management
+  - name: reviews
+    description: Reviews
+  - name: offers
+    description: Offers and promotions
+  - name: tables
+    description: Table management
+  - name: analytics
+    description: Analytics and reporting
+
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /categories:
+    get:
+      operationId: getCategories
+      tags: [categories]
+      summary: Get all categories
+      responses:
+        "200":
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryListResponse"
+
+  /menu:
+    get:
+      operationId: getMenuItems
+      tags: [menu]
+      summary: Get all menu items
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: isVeg
+          in: query
+          schema:
+            type: string
+        - name: isBestseller
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of menu items
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MenuItemListResponse"
+
+  /menu/{id}:
+    get:
+      operationId: getMenuItem
+      tags: [menu]
+      summary: Get menu item by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Menu item
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MenuItemResponse"
+
+  /offers:
+    get:
+      operationId: getOffers
+      tags: [offers]
+      summary: Get active offers
+      responses:
+        "200":
+          description: List of offers
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OfferListResponse"
+
+  /tables:
+    get:
+      operationId: getTables
+      tags: [tables]
+      summary: Get all tables
+      responses:
+        "200":
+          description: List of tables
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TableListResponse"
+
+  /reviews:
+    get:
+      operationId: getReviews
+      tags: [reviews]
+      summary: Get reviews
+      parameters:
+        - name: menuItem
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of reviews
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewListResponse"
+    post:
+      operationId: createReview
+      tags: [reviews]
+      summary: Create a review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateReviewInput"
+      responses:
+        "201":
+          description: Review created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewResponse"
+
+  /orders:
+    post:
+      operationId: createOrder
+      tags: [orders]
+      summary: Place a new order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrderInput"
+      responses:
+        "201":
+          description: Order placed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderResponse"
+
+  /orders/{id}:
+    get:
+      operationId: getOrder
+      tags: [orders]
+      summary: Get order by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderResponse"
+
+  /analytics/dashboard:
+    get:
+      operationId: getAnalyticsDashboard
+      tags: [analytics]
+      summary: Get dashboard analytics
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Dashboard stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardResponse"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    Category:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+        sortOrder:
+          type: number
+      required:
+        - _id
+        - name
+        - slug
+
+    CategoryListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category"
+      required:
+        - success
+        - data
+
+    MenuItemCategory:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+      required:
+        - _id
+        - name
+        - slug
+
+    MenuItem:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        category:
+          $ref: "#/components/schemas/MenuItemCategory"
+        image:
+          type: string
+        galleryImages:
+          type: array
+          items:
+            type: string
+        price:
+          type: number
+        ratings:
+          type: number
+        totalReviews:
+          type: number
+        isVeg:
+          type: boolean
+        isBestseller:
+          type: boolean
+        isAvailable:
+          type: boolean
+        spicyLevel:
+          type: string
+          enum: [mild, medium, hot, extra_hot]
+        preparationTime:
+          type: number
+        ingredients:
+          type: array
+          items:
+            type: string
+        calories:
+          type: number
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+        - _id
+        - name
+        - slug
+        - description
+        - price
+        - isVeg
+        - isBestseller
+        - isAvailable
+
+    MenuItemListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/MenuItem"
+      required:
+        - success
+        - data
+
+    MenuItemResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: "#/components/schemas/MenuItem"
+      required:
+        - success
+        - data
+
+    Offer:
+      type: object
+      properties:
+        _id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        bannerImage:
+          type: string
+        originalPrice:
+          type: number
+        discountedPrice:
+          type: number
+        discountPercentage:
+          type: number
+        isFeatured:
+          type: boolean
+        isActive:
+          type: boolean
+      required:
+        - _id
+        - title
+        - description
+        - discountPercentage
+
+    OfferListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Offer"
+      required:
+        - success
+        - data
+
+    Table:
+      type: object
+      properties:
+        _id:
+          type: string
+        tableNumber:
+          type: number
+        status:
+          type: string
+          enum: [available, occupied, reserved, cleaning]
+        capacity:
+          type: number
+        occupancy:
+          type: number
+      required:
+        - _id
+        - tableNumber
+        - status
+
+    TableListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Table"
+      required:
+        - success
+        - data
+
+    Review:
+      type: object
+      properties:
+        _id:
+          type: string
+        customerName:
+          type: string
+        rating:
+          type: number
+        reviewText:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - _id
+        - customerName
+        - rating
+        - reviewText
+
+    ReviewListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Review"
+      required:
+        - success
+        - data
+
+    ReviewResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: "#/components/schemas/Review"
+      required:
+        - success
+        - data
+
+    CreateReviewInput:
+      type: object
+      properties:
+        customerName:
+          type: string
+        menuItem:
+          type: string
+        rating:
+          type: number
+          minimum: 1
+          maximum: 5
+        reviewText:
+          type: string
+      required:
+        - customerName
+        - menuItem
+        - rating
+        - reviewText
+
+    OrderItem:
+      type: object
+      properties:
+        menuItem:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: number
+        image:
+          type: string
+      required:
+        - menuItem
+        - name
+        - price
+        - quantity
+
+    CreateOrderInput:
+      type: object
+      properties:
+        customerName:
+          type: string
+        tableNumber:
+          type: number
+        orderedItems:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderItem"
+        notes:
+          type: string
+      required:
+        - customerName
+        - tableNumber
+        - orderedItems
+
+    Order:
+      type: object
+      properties:
+        _id:
+          type: string
+        orderId:
+          type: string
+        customerName:
+          type: string
+        tableNumber:
+          type: number
+        orderedItems:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderItem"
+        totalAmount:
+          type: number
+        gst:
+          type: number
+        finalAmount:
+          type: number
+        notes:
+          type: string
+        orderStatus:
+          type: string
+          enum: [pending, accepted, preparing, cooking, ready, served, completed, cancelled]
+        estimatedCookingTime:
+          type: number
+        paymentStatus:
+          type: string
+          enum: [pending, paid, failed]
+        createdAt:
+          type: string
+      required:
+        - _id
+        - orderId
+        - customerName
+        - tableNumber
+        - orderedItems
+        - totalAmount
+        - gst
+        - finalAmount
+        - orderStatus
+
+    OrderResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: "#/components/schemas/Order"
+      required:
+        - success
+        - data
+
+    DashboardResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: object
+          properties:
+            dailyRevenue:
+              type: number
+            weeklyRevenue:
+              type: number
+            monthlyRevenue:
+              type: number
+            totalOrders:
+              type: number
+            activeTables:
+              type: number
+            topSellingDishes:
+              type: array
+              items:
+                type: object
+      required:
+        - success
+        - data

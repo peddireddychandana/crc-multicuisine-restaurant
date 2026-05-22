@@ -1,0 +1,20 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "b4CmmYHCfm8K-CYMmVxsC"
+uri = "file://artifacts/mobile/assets/images/icon.png"
+type = "image"
+title = "CRC restaurant app icon"
+
+[[generated]]
+id = "nZAbjelVJD_zY2C18W8bA"
+uri = "file://artifacts/mobile/assets/images/hero-banner.png"
+type = "image"
+title = "restaurant hero banner"
+
+[[generated]]
+id = "QbB87qYchZEOZkmWkQabu"
+uri = "file://artifacts/mobile/assets/images/biryani.png"
+type = "image"
+title = "chicken biryani dish"
